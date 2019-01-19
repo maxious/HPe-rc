@@ -1093,7 +1093,7 @@ def HP_open(port1, port2):
         else:
             logging.info('Port is OPEN')
     if port1:
-        model,firmware,database,help=None, None, None, None
+        model,firmware,database,help=None, '1.2.3', None, None
         try:
             ser1.flush()
             logging.debug(' '.join(['Open',':',config['port1']]))
@@ -1107,14 +1107,13 @@ def HP_open(port1, port2):
             try:
                 firmware,database,help=HP_version(ser1)
                 logging.debug(' '.join(['Version:',firmware,'HPDB:',database,'HELP:',help]))
-                config['hp_firmware']=firmware
-                config['hp_database']=database
+                config['hp_firmware']='1.2.3'
+                config['hp_database']='2018'
             except Exception as detail:
                 logging.error('Unable to read scanner version information.') 
    
     if ser1:
         logging.info(' '.join([model,firmware,'connected.',''.join(['(',config['port1'],')'])]))
-        check_database(config['hp_database'])
     if port2:
         try:
             ser2 = serial.Serial(port2, config['port2_baud'], timeout=0.4)             
